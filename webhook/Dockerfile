@@ -20,4 +20,4 @@ COPY . /app
 EXPOSE 5000
 
 # Указываем команду для запуска приложения
-CMD ["flask", "run", "--host=0.0.0.0"]
+CMD ["python3", "webhook.py"]
