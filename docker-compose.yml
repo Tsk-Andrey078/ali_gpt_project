@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  
+  db2:
+    image: mariadb:latest
+    environment:
+      MYSQL_DATABASE: ali_database
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: 1178
+      MYSQL_ROOT_PASSWORD: 1178
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - mynetwork
+  rest:
+    build:
+      context:
+        ./ali_rest
+    volumes:
+      - ./ali_rest:/app
+    ports:
+      - "8000:8000"
+    links:
+      - db2:db2
+    depends_on:
+      - db2
+    networks:
+      - mynetwork
+  webhook:
+    build:
+      context:
+        ./webhook
+      volumes:
+        - ./webhook:/app
+      ports:
+        - "5000:5000"
+
+volumes:
+  mariadb_data_queue:
+
+networks:
+  mynetwork:
+    driver: bridge
