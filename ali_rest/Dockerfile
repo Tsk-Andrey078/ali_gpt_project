@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app
 
 # Устанавливаем зависимости
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 
 # Открываем порт 8000 для доступа
