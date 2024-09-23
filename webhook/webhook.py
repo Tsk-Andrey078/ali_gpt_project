@@ -16,6 +16,7 @@ AMOCRM_WEBHOOK_URL = 'https://your-amocrm-webhook-url'
 def webhook():
     data = request.json
 
+    print("Webhook Activated")
     # Извлекаем сообщение от Instagram через AmoCRM
     if 'message' in data:
         message = data['message']
@@ -30,7 +31,7 @@ def webhook():
 
 # Функция для отправки запроса в GPT API
 def get_gpt_response(message):
-    
+
     return message
 
 # Функция для отправки ответа обратно в AmoCRM/Instagram
