@@ -57,4 +57,4 @@ def send_response_to_amocrm(gpt_response, original_data):
 
 # Запуск приложения Flask
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
