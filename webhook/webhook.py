@@ -19,14 +19,14 @@ def webhook():
     # Извлекаем сообщение от Instagram через AmoCRM
     if 'message' in data:
         message = data['message']
-
+        print(message)
         # Вызываем GPT API с сообщением
-        gpt_response = get_gpt_response(message)
+#        gpt_response = get_gpt_response(message)
 
         # Отправляем ответ обратно в AmoCRM
-        send_response_to_amocrm(gpt_response, data)
-
-    return jsonify({"status": "success"}), 200
+#       send_response_to_amocrm(gpt_response, data)
+#
+#    return jsonify({"status": "success"}), 200
 
 # Функция для отправки запроса в GPT API
 def get_gpt_response(message):
