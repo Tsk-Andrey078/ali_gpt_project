@@ -1,5 +1,5 @@
 # Используем официальный образ Python
-FROM python:3.9-slim
+FROM python:3.10
 
 # Устанавливаем переменную окружения для отключения буферизации вывода (для Docker-логов)
 ENV PYTHONUNBUFFERED=1
