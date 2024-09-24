@@ -14,6 +14,7 @@ AMOCRM_WEBHOOK_URL = 'https://your-amocrm-webhook-url'
 # Вебхук для получения сообщений от AmoCRM
 @app.route('/webhook', methods=['POST'])
 def webhook():
+    print(request)
     data = request.json
 
     print("Webhook Activated")
@@ -28,7 +29,7 @@ def webhook():
 #       send_response_to_amocrm(gpt_response, data)
 #
 #    return jsonify({"status": "success"}), 200
-
+    return 0
 # Функция для отправки запроса в GPT API
 def get_gpt_response(message):
 
