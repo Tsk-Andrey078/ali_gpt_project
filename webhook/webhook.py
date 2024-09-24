@@ -15,8 +15,16 @@ AMOCRM_WEBHOOK_URL = 'https://your-amocrm-webhook-url'
 @app.route('/webhook', methods=['POST'])
 def webhook():
     
+    # Вывод заголовков запроса
+    print("Headers: ", request.headers)
+    
+    # Вывод типа содержимого
+    print("Content-Type: ", request.content_type)
+    
+    # Вывод содержимого запроса
+    print("Data: ", request.data.decode('utf-8'))
+
     data = request.json
-    print(data)
     print("Webhook Activated")
     # Извлекаем сообщение от Instagram через AmoCRM
     if 'message' in data:
