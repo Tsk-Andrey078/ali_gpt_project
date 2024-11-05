@@ -5,5 +5,6 @@ class CompanySellSerializer(serializers.ModelSerializer):
     class Meta:
         model = CompanySell
         fields = [
+            'status',
             'data',
         ]

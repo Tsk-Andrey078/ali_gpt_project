@@ -12,6 +12,15 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from celery.schedules import timedelta
+
+CELERY_BEAT_SCHEDULE = {
+    'test-task-every-5-seconds': {
+        'task': 'ali_data_handler.tasks.check_for_new_messages',  # Замените на путь к вашей задаче
+        'schedule': timedelta(seconds=5),  # Запуск каждые 5 секунд
+    },
+}
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +49,13 @@ CORS_ALLOW_METHODS = [
 
 # Application definition
 
+# settings.py
+CELERY_BROKER_URL = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,6 +67,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'corsheaders',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -90,7 +107,7 @@ WSGI_APPLICATION = 'ali_rest.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',   # Используется PostgreSQL
-        'NAME': 'alidb', # Имя базы данных
+        'NAME': 'ali_database', # Имя базы данных
         'USER': 'admin', # Имя пользователя
         'PASSWORD': '1178', # Пароль пользователя
         'HOST': 'db2', # Наименование контейнера для базы данных в Docker Compose

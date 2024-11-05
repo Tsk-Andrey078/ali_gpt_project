@@ -13,6 +13,7 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - mynetwork
+
   rest:
     build:
       context:
@@ -25,16 +26,42 @@ services:
       - db2:db2
     depends_on:
       - db2
+      - celery
+      - redis
     networks:
       - mynetwork
-  webhook:
-    build:
+  
+  celery:
+    build: 
       context:
-        ./webhook
+        ./ali_rest
+    command: celery -A ali_rest worker --loglevel=info
     volumes:
-      - ./webhook:/app
+      - ./ali_rest:/app
+    depends_on:
+      - redis
+    networks:
+      - mynetwork
+
+  celery-beat:
+    build: 
+      context:
+        ./ali_rest
+    command: celery -A ali_rest beat --loglevel=info
+    volumes:
+      - ./ali_rest:/app
+    depends_on:
+      - redis
+    networks:
+      - mynetwork
+
+  redis:
+    image: "redis:alpine"
     ports:
-      - "5000:5000"
+      - "6379:6379"
+    networks:
+      - mynetwork
+
   nginx:
     image: nginx:latest
     container_name: nginx
